@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { SourceMapDevToolPlugin } = require('webpack');
 
 module.exports = {
     entry: path.resolve(__dirname, 'src', 'index.js'),
@@ -23,8 +24,13 @@ module.exports = {
                                 '@babel/preset-react'
                             ]
                         }
-                    }
+                    },
                 ]
+            },
+            {
+                test:/\.js$/,
+                enforce: 'pre',
+                use:['source-map-loader']
             },
             {
                 test: /\.css$/,
@@ -39,11 +45,15 @@ module.exports = {
     plugins:[
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.html')
+        }),
+        new SourceMapDevToolPlugin({
+            filename:"[file].map"
         })
     ],
     devServer:{
         contentBase: path.resolve(__dirname, 'dist'),
         compress:true,
-        port:9000
+        port:9000,
+        historyApiFallback: true,
     }
 }
