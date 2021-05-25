@@ -1,0 +1,30 @@
+.chats-grid{
+    display: grid;
+    width:100vw;
+    min-height:100vh;
+    grid-template-columns:2fr 5fr;
+    grid-template-rows: 50px all;
+    grid-template-areas: "navbar main";
+}
+
+.chats-grid section.navbar{
+    grid-area: navbar;
+    background: linear-gradient(-90deg,#09404d, #4eacc2);
+}
+.chats-grid section.navbar .search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background-color: red;*/
+    font-size:1.3em;
+    border-bottom:1px solid rgba(255,255,255,0.5);
+}
+.chat-grid article{
+    grid-area:main;
+}
+
+.chatlink{
+    text-decoration: none;
+    font-size:1.3em;
+    color:inherit;
+}

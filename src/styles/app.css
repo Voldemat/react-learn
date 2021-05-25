@@ -12,3 +12,7 @@ body{
     overflow-x:hidden;
     background-color:#126e82;
 }
+#root{
+    min-width:100vw;
+    min-height:100vh;
+}

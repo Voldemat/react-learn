@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import {Route, Link} from 'react-router-dom';
-
+import Chat from '../components/Chat.js';
+import '../styles/chats.css';
 
 class Chats extends React.Component{
     constructor(props){
@@ -9,7 +10,7 @@ class Chats extends React.Component{
         this.baseUrl = props.baseUrl;
         this.userId = props.userId;
         this.state = {
-            chatsIdList:null
+            chatsList:null
         }
     }
     componentDidMount(){
@@ -18,18 +19,25 @@ class Chats extends React.Component{
         axios.get(apiUrl)
             .then(response => {
                 this.setState({
-                    chatsIdList:response.data.map(obj => obj.id)
+                    chatsList:response.data
                 })
             })
     }
     render(){
         return(
             <>
-                <h1>Chats</h1>
-                {this.state.chatsIdList == null ? '' : this.state.chatsIdList.map(chatId => {
-                    return <Link to={`chats/${chatId}/`} key={chatId}>{chatId}</Link>
-                })}
-                
+                <section className="chats-grid">
+
+                    <section className="navbar">
+                        <div className="search">
+                            Search
+                        </div>
+                        {this.state.chatsList == null ? '' : this.state.chatsList.map(chat => {
+                            return <Link className="chatlink" to={`chats/${chat.id}/`} key={chat.id}>{chat.name === ''?chat.id : chat.name}</Link>
+                        })}
+                    </section>
+                    <Route path="/chats/:chatId" component={Chat} />
+                </section>
             </>
         )
     }

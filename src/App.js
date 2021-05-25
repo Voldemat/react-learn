@@ -30,10 +30,11 @@ class App extends React.Component{
                     <Header />
                     <Switch>
                         <Route path="/" component={Home} exact />
-                        <Route path="/chats" exact>
+                        <Route path="/chats">
                             <Chats baseUrl="api/v1/" userId="2e234bee-e83c-4081-ad0d-207ef6a8c10a"/>
                         </Route>
                         <Route path="/chats/:chatId" component={Chat} />
+                        
                     </Switch>
                 </Router>
             )
