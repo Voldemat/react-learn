@@ -7,10 +7,10 @@ class Chat extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            chatId:this.props.chatId,
+            chatId:this.props.match.params.chatId,
             messages:null,
         }
-        this.url = `ws://localhost:8000/ws/chats/${this.props.chatId}/`
+        this.url = `ws://localhost:8000/ws/chats/${this.props.match.params.chatId}/`
     }
     componentDidMount(){
         this.startWebsocket();

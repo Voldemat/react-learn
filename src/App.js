@@ -13,6 +13,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header.js';
 import Home from './pages/Home.js';
 import Chats from './pages/Chats.js';
+import Chat from './components/Chat.js';
 
 // import app styles
 import './styles/app.css';
@@ -32,6 +33,7 @@ class App extends React.Component{
                         <Route path="/chats" exact>
                             <Chats baseUrl="api/v1/" userId="2e234bee-e83c-4081-ad0d-207ef6a8c10a"/>
                         </Route>
+                        <Route path="/chats/:chatId" component={Chat} />
                     </Switch>
                 </Router>
             )
