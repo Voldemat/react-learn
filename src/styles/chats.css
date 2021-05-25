@@ -1,13 +1,16 @@
 .chats-grid{
     display: grid;
     width:100vw;
-    min-height:100vh;
+    height:90vh;
     grid-template-columns:2fr 5fr;
-    grid-template-rows: 50px all;
-    grid-template-areas: "navbar main";
+    grid-template-rows: 50px 1fr 50px;
+    grid-template-areas: "navbar main"
+                         "navbar main"
+                         "navbar form";
 }
 
 .chats-grid section.navbar{
+    /*position: fixed;*/
     grid-area: navbar;
     background: linear-gradient(-90deg,#09404d, #4eacc2);
 }
@@ -19,8 +22,13 @@
     font-size:1.3em;
     border-bottom:1px solid rgba(255,255,255,0.5);
 }
-.chat-grid article{
+.chats-grid article{
+    /*height: 80vh;*/
     grid-area:main;
+    overflow-y: scroll;
+}
+.chats-grid article form{
+    grid-area: form;
 }
 
 .chatlink{

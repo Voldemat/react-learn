@@ -22,6 +22,7 @@ class Chats extends React.Component{
                     chatsList:response.data
                 })
             })
+        this.form = document.querySelector("form#text_input")
     }
     render(){
         return(
@@ -37,6 +38,7 @@ class Chats extends React.Component{
                         })}
                     </section>
                     <Route path="/chats/:chatId" component={Chat} />
+                    
                 </section>
             </>
         )

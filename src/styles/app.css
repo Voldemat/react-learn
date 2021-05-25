@@ -11,6 +11,7 @@
 body{
     overflow-x:hidden;
     background-color:#126e82;
+    overflow-y: hidden;
 }
 #root{
     min-width:100vw;
