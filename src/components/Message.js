@@ -8,7 +8,9 @@ class Message extends React.Component{
     render(){
         return (
             <>
-                <p>{this.msg.text} - {this.msg.writer} - {this.msg.created_at}</p>
+                <div className={this.msg.writer === "you@email.com"? "message-my" : "message-other"}>
+                    <p>{this.msg.text} - {this.msg.writer}</p>
+                </div>
             </>
         )
     }

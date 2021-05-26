@@ -2,7 +2,7 @@
     display: grid;
     width:100vw;
     height:90vh;
-    grid-template-columns:2fr 5fr;
+    grid-template-columns:minmax(100px, 2fr) 5fr;
     grid-template-rows: 50px 1fr 50px;
     grid-template-areas: "navbar main"
                          "navbar main"
@@ -13,6 +13,7 @@
     /*position: fixed;*/
     grid-area: navbar;
     background: linear-gradient(-90deg,#09404d, #4eacc2);
+    min-width:100px;
 }
 .chats-grid section.navbar .search{
     display: flex;
@@ -23,12 +24,49 @@
     border-bottom:1px solid rgba(255,255,255,0.5);
 }
 .chats-grid article{
-    /*height: 80vh;*/
     grid-area:main;
     overflow-y: scroll;
 }
-.chats-grid article form{
+.chats-grid form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     grid-area: form;
+    background-color: #132c33;
+}
+article::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+article::-webkit-scrollbar-track {
+  background: #132c33;
+}
+
+article::-webkit-scrollbar-thumb {
+  background: #51c4d3;
+}
+input#messageInput{
+    width:90%;
+    height:80%;
+    background: linear-gradient(125deg, #51c4d3, #6ed8e5);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius:20vw;
+    padding:1%;
+    color:black;
+    font-size:1.2em;
+}
+input#messageInput::placeholder{
+    color:rgba(0,0,0,0.7);
+}
+.chats-grid form input[type="submit"]{
+    width:10%;
+    height: 100%;
+    background-color: #132c33;
+    color:#d8e3e7;
+    font-size:2em;
+    text-transform: uppercase;
+    border:none;
+    border-radius:20vh;
 }
 
 .chatlink{

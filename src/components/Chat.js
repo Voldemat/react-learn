@@ -16,7 +16,7 @@ class Chat extends React.Component{
     }
     componentDidMount(){
         this.startWebsocket();
-        this.input = document.querySelector("#text_input input[type='text']")
+        this.input = document.querySelector("#messageForm input[type='text']")
     }
     componentWillUnmount(){
         this.socket.close();
@@ -60,12 +60,12 @@ class Chat extends React.Component{
                         {this.state.messages == null ? '': this.state.messages.map(msg => {
                             return <Message message={msg} key={msg.id}/>
                         })}
-                        <form id="text_input" onSubmit={(e) => e.preventDefault()}>
-                            <input type="text" placeholder="message..." />
-                            <input type="submit" onClick={this.sendMessage} />
-                        </form>
-                        
                     </article>
+                    <form id="messageForm" onSubmit={(e) => e.preventDefault()}>
+                        <input id="messageInput" type="text" placeholder="message..." />
+                        <input type="submit" onClick={this.sendMessage} value="send"/>
+                        
+                    </form>
                 </>
         )
     }

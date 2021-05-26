@@ -26,14 +26,14 @@ class App extends React.Component{
 
     render(){
         return (
-                <Router history={this.history}>
+                <Router>
                     <Header />
                     <Switch>
                         <Route path="/" component={Home} exact />
                         <Route path="/chats">
                             <Chats baseUrl="api/v1/" userId="2e234bee-e83c-4081-ad0d-207ef6a8c10a"/>
                         </Route>
-                        <Route path="/chats/:chatId" component={Chat} />
+                        <Route path="/chats/:chatId/" component={Chat} exact/>
                         
                     </Switch>
                 </Router>
