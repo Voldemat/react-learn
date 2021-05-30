@@ -9,7 +9,9 @@ function Chat(props){
     const [messages, setMessages] = useState([])    
     const user = useSelector(state => state.user)
 
-    const input = useRef()
+    const inputRef = useRef()
+    const submitRef = useRef()
+    const scrollRef = useRef()
 
     function startWebsocket(){
         const socket = new WebSocket(`ws://localhost:8000/ws/chats/${chatId}/`);
@@ -20,8 +22,11 @@ function Chat(props){
                 setMessages(data)
             }
             else{
-                setMessages(messages.push(data))
+                setMessages(messages => {
+                    return [...messages, data]
+                })
             }
+            scrollRef.current.scrollIntoView({'behavior':'smooth'});
         }
         socket.onerror = (response) => {
             console.error(JSON.parse(response))
@@ -29,16 +34,18 @@ function Chat(props){
         return socket
     }
     
-    function sendMessage(event){
-        socket.send(JSON.stringify({
-            "message":input.current.value,
-            "token":user.token
-        }))
-        input.current.value = '';
-    }
+    
     useEffect(() => {
         const socket = startWebsocket();
-        
+        function sendMessage(event){
+            if (inputRef.current.value === '') return
+            socket.send(JSON.stringify({
+                "message":inputRef.current.value,
+                "token":user.token
+            }))
+            inputRef.current.value = '';
+        }
+        submitRef.current.addEventListener("click", sendMessage)
         return () => {
             socket.close()
         }
@@ -48,13 +55,14 @@ function Chat(props){
     return (
             <>
                 <article>
-                    {messages == null ? '': messages.map(msg => {
+                    {messages === null ? '': messages.map(msg => {
                         return <Message message={msg} key={msg.id}/>
                     })}
+                    <div ref={scrollRef}></div>
                 </article>
                 <form id="messageForm" onSubmit={(e) => e.preventDefault()}>
-                    <input ref={input} type="text" placeholder="message..." />
-                    <input type="submit" onClick={sendMessage} value="send"/>
+                    <input ref={inputRef} type="text" placeholder="message..." />
+                    <input type="submit" ref={submitRef} value="send"/>
                     
                 </form>
             </>

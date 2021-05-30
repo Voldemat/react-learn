@@ -28,13 +28,28 @@
     flex-direction: column;
     grid-area:main;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
-
+.chats-grid article div{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    border-radius: 20px;
+    padding: 0.5em 1em;
+}
+.chats-grid article div p{
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-width: 70%;
+}
 .my-message{
     align-self: flex-end;
+    background-color: green;
 }
 .other-message{
     align-self: flex-start;
+    background-color: red;
 }
 .chats-grid form{
     display: flex;

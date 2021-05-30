@@ -13,6 +13,7 @@ import Header from './components/Header.js';
 import Home from './pages/Home.js';
 import ChatsPage from './pages/Chats.js';
 import LoggingPage from './pages/LoggingPage';
+import LogOutPage from './pages/LogoutPage.js';
 import Chat from './components/Chat.js';
 
 // import state requirements
@@ -41,8 +42,9 @@ function App(){
                     </Route>
                     <Route path="/chats/:chatId/" component={Chat} exact/>
                     <Route path="/login" component={LoggingPage} exact/>
+                    <Route path="/logout" component={LogOutPage} exact/>
                 </Switch>
-                {user.token === null || user.token === undefined ? <Redirect to="/login" /> : <h1>{user.token}</h1>}
+                {user.token === null || user.token === undefined ? <Redirect to="/login" /> : ""}
             </Router>
             
         )
