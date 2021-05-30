@@ -1,8 +1,11 @@
-import { createStore } from 'redux';
-import userReducer from './store/reducers.js';
-import { changeUserObject, changeToken } from './store/actions.js';
+import { createStore, combineReducers } from 'redux';
 
-const store = createStore(userReducer);
+// import reducers
+import userReducer from './store/reducers/userReducer.js';
+import chatReducer from './store/reducers/chatReducer.js';
+
+const reducers = combineReducers({user:userReducer, chat:chatReducer})
+const store = createStore(reducers);
 
 store.subscribe(()=> {
     console.log(store.getState())

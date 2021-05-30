@@ -24,8 +24,17 @@
     border-bottom:1px solid rgba(255,255,255,0.5);
 }
 .chats-grid article{
+    display: flex;
+    flex-direction: column;
     grid-area:main;
     overflow-y: scroll;
+}
+
+.my-message{
+    align-self: flex-end;
+}
+.other-message{
+    align-self: flex-start;
 }
 .chats-grid form{
     display: flex;

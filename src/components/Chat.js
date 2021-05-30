@@ -1,73 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // Import components
 import Message from './Message.js';
+import { useSelector } from 'react-redux';
 
-class Chat extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            chatId:this.props.match.params.chatId,
-            messages:null,
-        }
-        this.userId = "2e234bee-e83c-4081-ad0d-207ef6a8c10a";
-        this.url = `ws://localhost:8000/ws/chats/${this.props.match.params.chatId}/`
-        
-        this.sendMessage = this.sendMessage.bind(this);
-    }
-    componentDidMount(){
-        this.startWebsocket();
-        this.input = document.querySelector("#messageForm input[type='text']")
-    }
-    componentWillUnmount(){
-        this.socket.close();
-        this.socket = null;
-        this.input = null;
-    }
-    startWebsocket(){
-        this.socket = new WebSocket(this.url);
 
-        this.socket.onmessage = (response) => {
+function Chat(props){
+    const chatId = props.match.params.chatId;
+    const [messages, setMessages] = useState([])    
+    const user = useSelector(state => state.user)
+
+    const input = useRef()
+
+    function startWebsocket(){
+        const socket = new WebSocket(`ws://localhost:8000/ws/chats/${chatId}/`);
+        socket.onmessage = (response) => {
             let data = JSON.parse(response.data);
-            
+
             if (Array.isArray(data)){
-                this.setState({
-                    messages:data
-                })
+                setMessages(data)
             }
             else{
-                let newState = this.state.messages;
-                newState.push(data)
-
-                this.setState({
-                    messages: newState
-                })
+                setMessages(messages.push(data))
             }
         }
-        this.socket.onerror = (response) => {
-            alert(JSON.parse(response));
+        socket.onerror = (response) => {
+            console.error(JSON.parse(response))
         }
+        return socket
     }
-    sendMessage(event){
-        this.socket.send(JSON.stringify({
-            "message":this.input.value,
-            "token":"c84075889cb5ecc765f317b4415178b58da6249e"}))
-        this.input.value = '';
+    
+    function sendMessage(event){
+        socket.send(JSON.stringify({
+            "message":input.current.value,
+            "token":user.token
+        }))
+        input.current.value = '';
     }
-    render(){
-        return (
-                <>
-                    <article>
-                        {this.state.messages == null ? '': this.state.messages.map(msg => {
-                            return <Message message={msg} key={msg.id}/>
-                        })}
-                    </article>
-                    <form id="messageForm" onSubmit={(e) => e.preventDefault()}>
-                        <input id="messageInput" type="text" placeholder="message..." />
-                        <input type="submit" onClick={this.sendMessage} value="send"/>
-                        
-                    </form>
-                </>
+    useEffect(() => {
+        const socket = startWebsocket();
+        
+        return () => {
+            socket.close()
+        }
+
+
+    }, [])
+    return (
+            <>
+                <article>
+                    {messages == null ? '': messages.map(msg => {
+                        return <Message message={msg} key={msg.id}/>
+                    })}
+                </article>
+                <form id="messageForm" onSubmit={(e) => e.preventDefault()}>
+                    <input ref={input} type="text" placeholder="message..." />
+                    <input type="submit" onClick={sendMessage} value="send"/>
+                    
+                </form>
+            </>
         )
-    }
+    
 }
 export default Chat;
