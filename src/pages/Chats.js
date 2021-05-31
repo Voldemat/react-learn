@@ -8,13 +8,14 @@ import Chat from '../components/Chat.js';
 import '../styles/chats.css';
 
 
-
 function ChatsPage(props){
-    const chatsUrl = "http://localhost:8000/api/v1/chats/";
-    const history = useHistory()
+    
+    const apiUrls = useSelector(state => state.api)
+    
     const user = useSelector(state => state.user)
     const chat = useSelector(state => state.chat)
-    const dispatch = useDispatch()
+
+    const history = useHistory()
 
     const [chats, setChats] = useState([])
 
@@ -24,19 +25,20 @@ function ChatsPage(props){
         if (user.token === null){
             history.push('/login')
         }
-        
-        // console.log(axios.defaults.headers.common['Authorization'])
-        axios.get(chatsUrl,{
+        console.log(user.token)
+        axios.get(apiUrls.chats,{
           headers: {
             'Authorization': `Token ${user.token}`
           }
         })
             .then(response => {
-                setChats(response.data)
+                console.log(response.data)
+                setChats(state => [...state, ...response.data])
             })
             .catch(error => {
                 console.error(error)
             })
+        
     }, [user])
 
     return (
@@ -48,7 +50,7 @@ function ChatsPage(props){
                             Search
                         </div>
                         {chats == null ? '' : chats.map(chat => {
-                            return <Link className="chatlink" to={`chats/${chat.id}/`} key={chat.id}>{chat.name === ''?chat.id : chat.name}</Link>
+                            return <Link className="chatlink" to={`chats/${chat.id}/`} key={chat.id}>{chat.name === '' || chat.name === undefined ? chat.id : chat.name}</Link>
                         })}
                     </section>
                     <Route path="/chats/:chatId" component={Chat} />

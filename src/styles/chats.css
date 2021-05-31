@@ -56,6 +56,8 @@
     max-width: 60%;
     border-radius: 20px;
     padding: 0.5em 1em;
+    margin: 3vh;
+
 }
 .chats-grid article div p{
     white-space: pre-wrap;

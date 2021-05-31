@@ -17,23 +17,22 @@ function Chat(props){
 
 
     function catchScroll(){
-        const element = scrollRef.current
+        const element = scrollRef.current;
         if (element.scrollHeight - element.scrollTop === element.clientHeight)
         {
             // code if bottom
-            console.log('scrolled');
-            setButtonTag(false)
+            setButtonTag(false);
 
         }
         else{
             // code if scroll higher
-            setButtonTag(true)
+            setButtonTag(true);
         }
     }
     function scrollDown(){
-        const messagesHTMLCollection = scrollRef.current.children
-        const scrollValue = scrollRef.current.scrollHeight - messagesHTMLCollection[messagesHTMLCollection.length - 1].scrollHeight
-        scrollRef.current.scrollTop = scrollValue
+        const messagesHTMLCollection = scrollRef.current.children;
+        const scrollValue = scrollRef.current.scrollHeight - messagesHTMLCollection[messagesHTMLCollection.length - 1].scrollHeight;
+        scrollRef.current.scrollTop = scrollValue;
     }
 
     function startWebsocket(){
@@ -42,7 +41,7 @@ function Chat(props){
             let data = JSON.parse(response.data);
 
             if (Array.isArray(data)){
-                setMessages(data)
+                setMessages(data);
             }
             else{
                 setMessages(messages => {
@@ -50,10 +49,10 @@ function Chat(props){
                 })
             }
             // scroll to last message
-            scrollDown()
+            scrollDown();
         }
         socket.onerror = (response) => {
-            console.error(JSON.parse(response))
+            console.error(JSON.parse(response));
         }
         return socket
     }
@@ -87,8 +86,7 @@ function Chat(props){
                 </article>
                 <form id="messageForm" onSubmit={(e) => e.preventDefault()}>
                     <input ref={inputRef} type="text" placeholder="message..." />
-                    <input type="submit" ref={submitRef} value="send"/>
-                    
+                    <input ref={submitRef} type="submit" value="send"/>
                 </form>
             </>
         )
