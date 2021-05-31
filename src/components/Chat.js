@@ -2,16 +2,39 @@ import React, { useState, useEffect, useRef } from 'react';
 // Import components
 import Message from './Message.js';
 import { useSelector } from 'react-redux';
+import scrollButtonArrowImage from '../images/scrollButtonArrow.png';
 
 
 function Chat(props){
     const chatId = props.match.params.chatId;
-    const [messages, setMessages] = useState([])    
+    const [messages, setMessages] = useState([])
+    const [buttonTag, setButtonTag] = useState(false)
     const user = useSelector(state => state.user)
 
     const inputRef = useRef()
     const submitRef = useRef()
     const scrollRef = useRef()
+
+
+    function catchScroll(){
+        const element = scrollRef.current
+        if (element.scrollHeight - element.scrollTop === element.clientHeight)
+        {
+            // code if bottom
+            console.log('scrolled');
+            setButtonTag(false)
+
+        }
+        else{
+            // code if scroll higher
+            setButtonTag(true)
+        }
+    }
+    function scrollDown(){
+        const messagesHTMLCollection = scrollRef.current.children
+        const scrollValue = scrollRef.current.scrollHeight - messagesHTMLCollection[messagesHTMLCollection.length - 1].scrollHeight
+        scrollRef.current.scrollTop = scrollValue
+    }
 
     function startWebsocket(){
         const socket = new WebSocket(`ws://localhost:8000/ws/chats/${chatId}/`);
@@ -26,7 +49,8 @@ function Chat(props){
                     return [...messages, data]
                 })
             }
-            scrollRef.current.scrollIntoView({'behavior':'smooth'});
+            // scroll to last message
+            scrollDown()
         }
         socket.onerror = (response) => {
             console.error(JSON.parse(response))
@@ -52,13 +76,14 @@ function Chat(props){
 
 
     }, [])
+
     return (
             <>
-                <article>
+                <article ref={scrollRef} onScroll={catchScroll}>
                     {messages === null ? '': messages.map(msg => {
                         return <Message message={msg} key={msg.id}/>
                     })}
-                    <div ref={scrollRef}></div>
+                    <img src={scrollButtonArrowImage} className={`scroll-button ${buttonTag === true ? "button-appear" : ""}`} onClick={scrollDown} />
                 </article>
                 <form id="messageForm" onSubmit={(e) => e.preventDefault()}>
                     <input ref={inputRef} type="text" placeholder="message..." />

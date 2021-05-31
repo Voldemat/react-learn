@@ -24,11 +24,30 @@
     border-bottom:1px solid rgba(255,255,255,0.5);
 }
 .chats-grid article{
+    position: relative;
     display: flex;
     flex-direction: column;
     grid-area:main;
     overflow-y: scroll;
     overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+.scroll-button{
+    position: fixed;
+    bottom: 12vh;
+    right: 10px;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+    background-color: #51c4d3;
+    object-fit: cover;
+    background-size: cover;
+    display: none;
+    transform: rotateZ(90deg);
+
+}
+.button-appear{
+    display: block;
 }
 .chats-grid article div{
     position: relative;
