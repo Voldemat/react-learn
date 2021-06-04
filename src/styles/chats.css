@@ -26,7 +26,9 @@
 .chats-grid article{
     position: relative;
     display: flex;
+    justify-content: flex-end;
     flex-direction: column;
+    /*align-items: flex-end;*/
     grid-area:main;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -34,7 +36,7 @@
 }
 .scroll-button{
     position: fixed;
-    bottom: 12vh;
+    bottom: 65px;
     right: 10px;
     max-width: 40px;
     max-height: 40px;
@@ -55,10 +57,34 @@
     flex-direction: column;
     max-width: 60%;
     border-radius: 20px;
-    padding: 0.5em 1em;
-    margin: 3vh;
+    padding: 0 1em;
+    padding-bottom: 0.5em;
+    margin: 11px 20px;
+    min-width: 150px;
 
 }
+.chats-grid article div img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: -12px;
+    right: -20px;
+}
+.chats-grid article div span{
+    position: relative;
+    right: 10px;
+    align-self: flex-end;
+    font-size: 0.8em;
+    color: #d8e3e7;
+    /*background-color: blue;*/
+    border-radius: 20px;
+    opacity: 0;
+    transform: translateX(70px);
+    transition: 0.5s ease;
+}
+
 .chats-grid article div p{
     white-space: pre-wrap;
     word-break: break-all;
@@ -118,4 +144,12 @@ input#messageInput::placeholder{
     text-decoration: none;
     font-size:1.3em;
     color:inherit;
+}
+
+.error-msg{
+    display: inline-block;
+    padding: 5px;
+    border-radius: 10px;
+    border: 3px solid rgba(255,150,150,1);
+    background-color: rgba(255,50,50,0.8);
 }

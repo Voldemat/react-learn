@@ -2,6 +2,7 @@ const initialState = {
     "id":null,
     "token":"c84075889cb5ecc765f317b4415178b58da6249e",
     "email":"you@email.com",
+    "avatar":"/media/users/avatars/joseph-barrientos-tT6hv8y4Iz8-unsplash_1.jpg"
 
 }
 function userReducer(state = initialState, action){

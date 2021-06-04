@@ -1,14 +1,68 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
+import {Route, Link, useHistory} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 
-class Home extends React.Component{
-    render(){
-        return(
+import Chat from '../components/Chat.js';
+import '../styles/chats.css';
+
+
+function HomePage(props){
+    
+    const apiUrls = useSelector(state => state.api)
+    
+    const user = useSelector(state => state.user)
+    const chat = useSelector(state => state.chat)
+
+    const history = useHistory()
+
+    const [chats, setChats] = useState([])
+
+    const form = useRef()
+
+    useEffect(() => {
+        if (user.token === null){
+            history.push('/login')
+        }
+        axios.get(apiUrls.chats,{
+          headers: {
+            'Authorization': `Token ${user.token}`
+          }
+        })
+            .then(response => {
+                setChats(state => [...state, ...response.data])
+            })
+            .catch(error => {
+                console.error(error)
+            })
+        
+    }, [])
+
+
+    return (
             <>
-                <h1>Home</h1>
-            </>
+                <section className="chats-grid">
 
-        )
-    }
+                    <section className="navbar">
+                        <div className="search">
+                            Search
+                        </div>
+                        {chats == null ? '' : chats.map(chat => {
+                            return <Link className="chatlink" to={`chats/${chat.id}/`} key={chat.id}>{chat.name === '' || chat.name === undefined ? chat.id : chat.name}</Link>
+                        })}
+                    </section>
+                    <Route path="/chats/:chatId" component={Chat} />
+                    
+                </section>
+
+
+            </>
+    )
+    
+
+
 }
-export default Home
+
+
+export default HomePage

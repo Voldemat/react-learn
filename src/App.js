@@ -10,10 +10,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // Import components
 import Header from './components/Header.js';
-import Home from './pages/Home.js';
-import ChatsPage from './pages/Chats.js';
+import HomePage from './pages/Home.js';
 import LoggingPage from './pages/LoggingPage';
 import LogOutPage from './pages/LogoutPage.js';
+import RegistrationPage from './pages/RegistrationPage.js';
 import Chat from './components/Chat.js';
 
 // import state requirements
@@ -36,13 +36,11 @@ function App(){
                 <Header />
                 
                 <Switch>
-                    <Route path="/" component={Home} exact />
-                    <Route path="/chats">
-                        <ChatsPage />
-                    </Route>
+                    <Route path="/" component={HomePage} exact />
                     <Route path="/chats/:chatId/" component={Chat} exact/>
                     <Route path="/login" component={LoggingPage} exact/>
                     <Route path="/logout" component={LogOutPage} exact/>
+                    <Route path="/registration" component={RegistrationPage} exact />
                 </Switch>
                 {user.token === null || user.token === undefined ? <Redirect to="/login" /> : ""}
             </Router>

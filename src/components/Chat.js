@@ -11,6 +11,7 @@ function Chat(props){
     const [buttonTag, setButtonTag] = useState(false)
     const user = useSelector(state => state.user)
 
+
     const inputRef = useRef()
     const submitRef = useRef()
     const scrollRef = useRef()
@@ -85,7 +86,7 @@ function Chat(props){
                     <img src={scrollButtonArrowImage} className={`scroll-button ${buttonTag === true ? "button-appear" : ""}`} onClick={scrollDown} />
                 </article>
                 <form id="messageForm" onSubmit={(e) => e.preventDefault()}>
-                    <input ref={inputRef} type="text" placeholder="message..." />
+                    <input id="messageInput" ref={inputRef} type="text" placeholder="message..." />
                     <input ref={submitRef} type="submit" value="send"/>
                 </form>
             </>
