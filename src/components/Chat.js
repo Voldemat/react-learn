@@ -75,7 +75,7 @@ function Chat(props){
         }
 
 
-    }, [])
+    }, [chatId])
 
     return (
             <>

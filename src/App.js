@@ -11,6 +11,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // Import components
 import Header from './components/Header.js';
 import HomePage from './pages/Home.js';
+import ChatsPage from './pages/ChatsPage.js';
 import LoggingPage from './pages/LoggingPage';
 import LogOutPage from './pages/LogoutPage.js';
 import RegistrationPage from './pages/RegistrationPage.js';
@@ -36,11 +37,18 @@ function App(){
                 <Header />
                 
                 <Switch>
-                    <Route path="/" component={HomePage} exact />
-                    <Route path="/chats/:chatId/" component={Chat} exact/>
+                    <Route path="/home" component={HomePage} exact />
+                    <Route path="/home/:chatId/" component={Chat} />
+                    <Route path="/chats" component={ChatsPage} />
+                    {/*
+                        <Route path="/chats/:chatId/" component={Chat} exact/>  
+                        This route is defined in ChatsPage render method,
+                        here it don`t work
+                    */}
                     <Route path="/login" component={LoggingPage} exact/>
                     <Route path="/logout" component={LogOutPage} exact/>
                     <Route path="/registration" component={RegistrationPage} exact />
+                    <Redirect from="/" to="/home" />
                 </Switch>
                 {user.token === null || user.token === undefined ? <Redirect to="/login" /> : ""}
             </Router>
