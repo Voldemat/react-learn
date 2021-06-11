@@ -49,10 +49,10 @@ function ChatsPage(props){
                             Search
                         </div>
                         {chats == null ? '' : chats.map(chat => {
-                            return <Link className="chatlink" to={`/chats/${chat.id}/`} key={chat.id}>{chat.name === '' || chat.name === undefined ? chat.id : chat.name}</Link>
+                            return <Link className="chatlink" to={`/home/${chat.id}/`} key={chat.id}>{chat.name === '' || chat.name === undefined ? chat.id : chat.name}</Link>
                         })}
                     </section>
-                <Route path="/chats/:chatId/" component={Chat} exact/>      
+                <Route path="/home/:chatId/" component={Chat} exact/>      
                 </section>
 
 

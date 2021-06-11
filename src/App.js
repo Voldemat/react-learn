@@ -9,13 +9,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 
 // Import components
-import Header from './components/Header.js';
-import HomePage from './pages/Home.js';
-import ChatsPage from './pages/ChatsPage.js';
-import LoggingPage from './pages/LoggingPage';
-import LogOutPage from './pages/LogoutPage.js';
+import Header           from './components/Header.js';
+import ChatsPage        from './pages/ChatsPage.js';
+import LoggingPage      from './pages/LoggingPage';
+import LogOutPage       from './pages/LogoutPage.js';
 import RegistrationPage from './pages/RegistrationPage.js';
-import Chat from './components/Chat.js';
+import FriendsPage      from './pages/FriendsPage.js';
 
 // import state requirements
 import { useSelector, useDispatch } from 'react-redux';
@@ -37,9 +36,8 @@ function App(){
                 <Header />
                 
                 <Switch>
-                    <Route path="/home" component={HomePage} exact />
-                    <Route path="/home/:chatId/" component={Chat} />
-                    <Route path="/chats" component={ChatsPage} />
+                    <Route path="/home" component={ChatsPage} />
+                    <Route path="/friends" component={FriendsPage} />
                     {/*
                         <Route path="/chats/:chatId/" component={Chat} exact/>  
                         This route is defined in ChatsPage render method,

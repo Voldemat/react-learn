@@ -3,7 +3,8 @@ const initialState = {
     "base"              :   "http://localhost:8000/api/v1",
     "chats"             :   "http://localhost:8000/api/v1/chats",
     "personal-chats"    :   "http://localhost:8000/api/v1/personal-chats",
-    "users"             :   "http://localhost:8000/api/v1/users"
+    "users"             :   "http://localhost:8000/api/v1/users",
+    "friends"           :   "http://localhost:8000/api/v1/friends"
 
 }
 

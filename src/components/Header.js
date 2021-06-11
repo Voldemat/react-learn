@@ -13,7 +13,7 @@ function Header(){
                 <Link to="/" className="logo">
                     Union
                 </Link>
-                <Link to="/chats"> Chats </Link>
+                <Link to="/friends"> Friends </Link>
                 {user.token === null ? <Link to="/login">
                     LogIn
                 </Link>: <Link to="/logout">logout</Link>}
