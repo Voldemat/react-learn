@@ -6,7 +6,6 @@ import scrollButtonArrowImage from '../images/scrollButtonArrow.png';
 
 
 function Chat(props){
-    const chatId = props.match.params.chatId;
     const [messages, setMessages] = useState([])
     const [buttonTag, setButtonTag] = useState(false)
     const user = useSelector(state => state.user)
@@ -36,7 +35,7 @@ function Chat(props){
         scrollRef.current.scrollTop = scrollValue;
     }
 
-    function startWebsocket(){
+    function startWebsocket(chatId){
         const socket = new WebSocket(`ws://localhost:8000/ws/chats/${chatId}/`);
         socket.onmessage = (response) => {
             let data = JSON.parse(response.data);
@@ -60,7 +59,8 @@ function Chat(props){
     
     
     useEffect(() => {
-        const socket = startWebsocket();
+        const chatId = props.match.params.chatId
+        const socket = startWebsocket(chatId);
         function sendMessage(event){
             if (inputRef.current.value === '') return
             socket.send(JSON.stringify({
@@ -75,7 +75,7 @@ function Chat(props){
         }
 
 
-    }, [chatId])
+    }, [props.match])
 
     return (
             <>
